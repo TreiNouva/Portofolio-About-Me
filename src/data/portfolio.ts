@@ -40,8 +40,8 @@ export const profile = {
       "I'm a Computer Science student at BINUS University, specializing in System Intelligence. I'm interested in Natural Language Processing, Computer Vision, Machine Learning, and AI more broadly.",
     ),
     tr(
-      "Selama kuliah saya aktif di organisasi kampus dan mengerjakan proyek tim, mulai dari platform komunitas berbasis Next.js sampai aplikasi machine learning untuk mendeteksi komentar judi online dan memprediksi kestabilan pernikahan.",
-      "Since starting university I've joined campus organizations and worked on team projects, from a Next.js community platform to machine learning apps that detect online gambling comments and predict marriage stability.",
+      "Selama kuliah saya aktif di organisasi kampus dan mengerjakan proyek tim, mulai dari CampusFlow, aplikasi manajemen organisasi kampus yang saya pimpin sebagai CEO, platform komunitas berbasis Next.js, sampai aplikasi machine learning untuk mendeteksi komentar judi online dan memprediksi kestabilan pernikahan.",
+      "Since starting university I've joined campus organizations and worked on team projects, from CampusFlow, a campus organization management app I lead as CEO, to a Next.js community platform and machine learning apps that detect online gambling comments and predict marriage stability.",
     ),
     tr(
       "Saya nyaman bekerja dalam tim, punya inisiatif, dan cepat belajar dengan bimbingan yang tepat. Saya juga memahami bahasa Inggris dengan baik.",
@@ -93,7 +93,7 @@ export const ui = {
     },
     featured: {
       title: tr("Proyek unggulan", "Featured project"),
-      body: tr("BINUSphere, sebagai Project Manager", "BINUSphere, as Project Manager"),
+      body: tr("CampusFlow, sebagai CEO & Full-stack Developer", "CampusFlow, as CEO & Full-stack Developer"),
     },
     certificate: {
       title: tr("Sertifikat terbaru", "Latest certificate"),
@@ -141,7 +141,7 @@ export const ui = {
       },
       {
         title: tr("Tools dan platform", "Tools and platforms"),
-        items: [same("GitHub"), same("Supabase"), same("Streamlit"), same("Vercel")],
+        items: [same("GitHub"), same("Supabase"), same("PostgreSQL"), same("Streamlit"), same("Vercel")],
       },
       {
         title: tr("Keahlian profesional", "Professional skills"),
@@ -160,8 +160,8 @@ export const ui = {
   projects: {
     title: tr("Proyek", "Projects"),
     intro: tr(
-      "Empat proyek dengan peran yang berbeda: memimpin tim, membangun model, dan memastikan kualitas.",
-      "Four projects with different roles: leading a team, building models, and making sure things work.",
+      "Lima proyek dengan peran yang berbeda: membangun produk sendiri, memimpin tim, membangun model, dan memastikan kualitas.",
+      "Five projects with different roles: building my own product, leading a team, building models, and making sure things work.",
     ),
     role: tr("Peran", "Role"),
     details: tr("Detail", "Details"),
@@ -211,13 +211,66 @@ export type Project = {
   tech: string[];
   sections: { title: L; items: L[] }[];
   links: { live?: string; github?: string };
+  /** Optional screenshot shown on the card (put the file in public/images/projects/). */
+  image?: { src: string; alt: L };
 };
 
 export const projects: Project[] = [
   {
+    slug: "campusflow",
+    name: "CampusFlow",
+    featured: true,
+    role: tr("CEO & Full-stack Developer", "CEO & Full-stack Developer"),
+    status: "deployed",
+    description: tr(
+      "Aplikasi web untuk mengelola organisasi dan kepanitiaan kampus dalam satu tempat: task per divisi, kalender, dokumen, budget, sampai laporan LPJ sekali klik. Dibangun sebagai startup di mata kuliah Venture Creation, sudah live dan bisa dipakai gratis.",
+      "A web app that brings campus organizations and event committees into one place: tasks per division, calendar, documents, budget, and a one-click accountability report (LPJ). Built as a startup in the Venture Creation course; it's live and free to use.",
+    ),
+    tech: ["Next.js 15", "React 19", "TypeScript", "Supabase", "PostgreSQL", "Row Level Security", "Tailwind CSS", "Vercel"],
+    sections: [
+      {
+        title: tr("Fitur", "Features"),
+        items: [
+          tr("Task board per divisi dengan PIC, prioritas, dan deadline", "Task board per division with owner, priority, and deadline"),
+          tr("Kalender rapat, acara, dan milestone", "Calendar for meetings, events, and milestones"),
+          tr("Pengumuman serta notifikasi in-app dan email", "Announcements with in-app and email notifications"),
+          tr("Dokumen per divisi dan budget rencana vs realisasi", "Documents per division and planned vs actual budget"),
+          tr("Laporan LPJ siap cetak, undangan lewat link, mode gelap, tampilan HP", "Printable LPJ report, invite links, dark mode, mobile layout"),
+        ],
+      },
+      {
+        title: tr("Implementasi teknis", "Technical implementation"),
+        items: [
+          tr("Hak akses 8 peran dan per divisi ditegakkan di database dengan Row Level Security", "Access for 8 roles and per-division scope enforced in the database with Row Level Security"),
+          tr("Kuota paket langganan dan aturan periode project dijaga oleh fungsi dan trigger PostgreSQL", "Plan quotas and project-period rules enforced by PostgreSQL functions and triggers"),
+          tr("Skema dikembangkan bertahap lewat 8 migrasi SQL", "Schema evolved through 8 incremental SQL migrations"),
+          tr("Konfirmasi email yang bisa dibuka di perangkat mana pun dan form anti-spam", "Email confirmation that works on any device, plus spam-protected forms"),
+        ],
+      },
+      {
+        title: tr("Peran saya", "My role"),
+        items: [
+          tr("Memimpin tim dari ide, Business Model Canvas, dan validasi pasar sampai pameran Binus Festival", "Led the team from idea, Business Model Canvas, and market validation to the Binus Festival exhibition"),
+          tr("Merancang dan membangun aplikasi dari database sampai tampilan, lalu merilisnya di Vercel", "Designed and built the app end to end, from database to UI, and shipped it on Vercel"),
+          tr("Menyiapkan materi pemasaran: video iklan (didaftarkan HKI), konten Instagram, dan poster booth", "Produced marketing material: a product ad video (registered for IP), Instagram content, and booth posters"),
+        ],
+      },
+    ],
+    links: {
+      live: "https://campus-flow-sepia.vercel.app",
+      github: "https://github.com/TreiNouva/CampusFlow",
+    },
+    image: {
+      src: "/images/projects/campusflow.webp",
+      alt: tr(
+        "Tampilan CampusFlow di laptop dan HP dengan label fitur Task, Kalender, Notifikasi, Dokumen, Budget, dan LPJ",
+        "CampusFlow on a laptop and phone, labelled with its Task, Calendar, Notification, Document, Budget, and LPJ features",
+      ),
+    },
+  },
+  {
     slug: "binusphere",
     name: "BINUSphere",
-    featured: true,
     role: tr("Project Manager", "Project Manager"),
     status: "deployed",
     description: tr(

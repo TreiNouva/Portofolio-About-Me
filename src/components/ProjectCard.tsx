@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChevronDown, ExternalLink } from "lucide-react";
 import { ui, type Project } from "@/data/portfolio";
@@ -68,6 +69,24 @@ function ProjectLinks({ project }: { project: Project }) {
   );
 }
 
+function ProjectImage({ project, priority = false }: { project: Project; priority?: boolean }) {
+  const { t } = useLang();
+  if (!project.image) return null;
+  return (
+    <div className="overflow-hidden rounded-xl border border-line bg-panel-2">
+      <Image
+        src={project.image.src}
+        alt={t(project.image.alt)}
+        width={1600}
+        height={900}
+        sizes="(min-width: 1280px) 1100px, 100vw"
+        priority={priority}
+        className="h-auto w-full"
+      />
+    </div>
+  );
+}
+
 function DetailSections({ project }: { project: Project }) {
   const { t } = useLang();
   return (
@@ -95,6 +114,11 @@ export function FeaturedProject({ project }: { project: Project }) {
       className="panel relative grid gap-6 overflow-hidden p-6 pl-8 sm:p-8 sm:pl-10 md:grid-cols-2"
     >
       <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-accent" />
+      {project.image ? (
+        <div className="md:col-span-2">
+          <ProjectImage project={project} />
+        </div>
+      ) : null}
       <div className="flex flex-col gap-4">
         <div>
           <p className="text-sm font-medium text-accent-text">{t(ui.hero.featured.title)}</p>
@@ -130,6 +154,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
   return (
     <article aria-labelledby={`${project.slug}-name`} className="panel flex flex-col gap-4 p-6">
+      <ProjectImage project={project} />
       <div>
         <div className="flex items-start justify-between gap-3">
           <h3 id={`${project.slug}-name`} className="font-display text-lg font-semibold leading-snug text-fg">
